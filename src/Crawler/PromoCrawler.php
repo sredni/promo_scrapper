@@ -48,9 +48,9 @@ class PromoCrawler implements CrawlerInterface
             throw new CrawlerException(sprintf('Unable to crawl url: `%s` status code: `%s`', $url, $response->getStatusCode()));
         }
 
-//        register_shutdown_function(function () use ($filePath) {
-//            @unlink($filePath);
-//        });
+        register_shutdown_function(function () use ($filePath) {
+            @unlink($filePath);
+        });
 
         return new \SplFileInfo($filePath);
     }
