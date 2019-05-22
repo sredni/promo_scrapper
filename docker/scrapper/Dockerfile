@@ -44,4 +44,5 @@ CMD ["php-fpm -y /usr/local/etc/php-fpm-dev.conf -c /usr/local/etc/php-dev -D; p
 FROM scrapper-base AS scrapper-app
 
 COPY . /var/www/scrapper
-RUN /usr/local/bin/composer install
+RUN /usr/local/bin/composer install \
+    && chown -R www-data: .
