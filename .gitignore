@@ -1,4 +1,4 @@
 .idea
 .env
-files
-vendor
+/files
+/vendor

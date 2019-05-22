@@ -1,0 +1,3 @@
+#!/bin/bash
+
+PHP_IDE_CONFIG="serverName=CLI" XDEBUG_CONFIG="remote_host=$XDEBUG_REMOTE_HOST idekey=CLI" php -c /usr/local/etc/php-dev/ "$@"
