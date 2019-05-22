@@ -7,7 +7,7 @@ use GuzzleHttp\Client;
 use Slim\Container;
 use Sredni\Controller\PromoController;
 use Sredni\Converter\VideoToAudioConverter;
-use Sredni\Crawler\PromoCrawler;
+use Sredni\Crawler\HttpCrawler;
 use Sredni\Service\PromoScrapperService;
 
 $config = require '../config/config.php';
@@ -22,13 +22,13 @@ return new Container([
     //SERVICES
     PromoScrapperService::class => function(Container $container) {
         return new PromoScrapperService(
-            $container->get(PromoCrawler::class),
+            $container->get(HttpCrawler::class),
             $container->get(VideoToAudioConverter::class),
             $container->get('settings')['promo_url_pattern']
         );
     },
-    PromoCrawler::class => function(Container $container) {
-        return new PromoCrawler(
+    HttpCrawler::class => function(Container $container) {
+        return new HttpCrawler(
             $container->get(Client::class),
             $container->get('settings')['temporary_path']
         );

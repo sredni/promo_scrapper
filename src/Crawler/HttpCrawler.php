@@ -7,9 +7,8 @@ namespace Sredni\Crawler;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Sredni\Exception\CrawlerException;
-use Sredni\Exception\CrawlerWrongResponseCodeException;
 
-class PromoCrawler implements CrawlerInterface
+class HttpCrawler implements CrawlerInterface
 {
     /**
      * @var Client
@@ -39,7 +38,7 @@ class PromoCrawler implements CrawlerInterface
      */
     public function fetchFile(string $url): \SplFileInfo
     {
-        $filePath = $this->temporaryPath . DIRECTORY_SEPARATOR . base64_encode(random_bytes(9)) . '.mp4';
+        $filePath = $this->temporaryPath . DIRECTORY_SEPARATOR . $this->generateRandomString() . '.mp4';
         $response = $this->client->get($url, [
             RequestOptions::SINK => $filePath,
         ]);
@@ -71,5 +70,14 @@ class PromoCrawler implements CrawlerInterface
         $content = $response->getBody()->getContents();
 
         return \GuzzleHttp\json_decode($content, true);
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    private function generateRandomString(): string
+    {
+        return str_replace(['/', '+'], '', base64_encode(random_bytes(9)));
     }
 }
