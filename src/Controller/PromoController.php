@@ -41,9 +41,7 @@ class PromoController
 
         $convertedFileData = $this->promoScrapperService->fetchAndConvert($tag);
 
-        return $response->withJson([
-            $convertedFileData->serialize($this->getHostWithScheme($request->getUri()))
-        ]);
+        return $response->withJson($convertedFileData->serialize($this->getHostWithScheme($request->getUri())));
     }
 
     /**
